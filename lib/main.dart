@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_search/data/repository/photo_api_repository_impl.dart';
 import 'package:flutter_image_search/data/sorce/pixabay_api.dart';
+import 'package:flutter_image_search/di/provider_setup.dart';
+import 'package:flutter_image_search/domain/use_case/get_photos_use_case.dart';
 import 'package:flutter_image_search/presentation/home/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +11,10 @@ import 'presentation/home/home_screen.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: globalProviders,
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -30,10 +35,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
           elevation: 0,
         ),
-        body: ChangeNotifierProvider(
-            create: (_) => HomeViewModel(
-                PhotoApiRepositoryImpl(PixabayApi(http.Client()))),
-            child: const HomeScreen()),
+        body: const HomeScreen(),
       ),
     );
   }

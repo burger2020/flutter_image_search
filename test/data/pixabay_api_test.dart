@@ -1,5 +1,7 @@
 import 'package:flutter_image_search/data/repository/photo_api_repository_impl.dart';
 import 'package:flutter_image_search/data/sorce/pixabay_api.dart';
+import 'package:flutter_image_search/data/sorce/result.dart';
+import 'package:flutter_image_search/domain/model/pixabay_photo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:http/http.dart' as http;
@@ -18,9 +20,9 @@ void main() {
             "${PixabayApi.baseUrl}?key=${PixabayApi.key}&q=iphone&image_type=photo&pretty=true")))
         .thenAnswer((realInvocation) async => http.Response(fakeJsonBody, 200));
 
-    final result = await api.fetch("iphone");
+    final Result<List<PixabayPhoto>> result = await api.fetch("iphone");
 
-    expect(result.first.id, 1127174);
+    expect((result as Success<List<PixabayPhoto>>).data.first.id, 1127174);
 
     verify(client.get(Uri.parse(
         "${PixabayApi.baseUrl}?key=${PixabayApi.key}&q=iphone&image_type=photo&pretty=true")));

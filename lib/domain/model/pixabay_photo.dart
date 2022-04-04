@@ -6,10 +6,10 @@ part 'pixabay_photo.g.dart';
 
 @freezed
 class PixabayPhoto with _$PixabayPhoto {
+  factory PixabayPhoto.fromJson(Map<String, dynamic> json) => _$PixabayPhotoFromJson(json);
+
   factory PixabayPhoto(
       {required int id,
       required String tags,
       required String previewURL}) = _PixabayPhoto;
-
-  factory PixabayPhoto.fromJson(Map<String, dynamic> json) => _$PixabayPhotoFromJson(json);
 }
